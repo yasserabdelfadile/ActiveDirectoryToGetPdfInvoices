@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebApplication25.Models.ModelView.UserForm>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+    int x = 1;
+}
+
+
+<div class="card m-5">
+    <div class="card-header">
+
+ 
+        <p class="m-3">
+             <a asp-action="storeuser" class="btn btn-sm btn-outline-info bi bi-arrow-clockwise"> Update User</a>
+            <a asp-action="Delete" class="btn btn-sm btn-outline-danger bi bi-trash3"> </a>
+
+        </p>
+        <p>
+
+        </p>
+
+    </div>
+    <div class="card-body m-5">
+
+        <table id="example" class=" table table-hover table-responsive table-striped  text-center ">
+            <thead class="text-primary text-center">
+                <tr>
+                    <th>#</th>
+                    <th> Account Name</th>
+                    <th> @Html.DisplayNameFor(model => model.Name)</th>
+
+
+                    <th>Role</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@x</td>
+                        <td> @Html.DisplayFor(modelItem => item.SamAccountName) </td>
+                        <td> @Html.DisplayFor(modelItem => item.Name) </td>
+                        <td>@string.Join(" , ",item.RoleForm.ToList())</td>
+                        <td><a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-outline-primary bi bi-gear"></a>  </td>
+                    </tr>
+                    { x += 1; }
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+
+<script src="~/assets/js/custom.js"></script>
+
+

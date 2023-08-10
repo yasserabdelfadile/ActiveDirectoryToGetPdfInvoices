@@ -1,0 +1,106 @@
+﻿@model List<WebApplication25.Models.EntityGetResponseForInvoicing>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    int x =1;
+}
+
+<div class="container">
+    <div class="card m-1"  >
+        <div class="card-header ">
+            <a asp-controller="Home" asp-action="ClearCach" class="btn btn-sm btn-outline-primary m-4">
+                Refresh
+            </a>
+
+        </div>
+        <div class="card-body m-2 text-center"  >
+          
+            @*/-------------------------------------------------------------/*@
+           
+            <div class="form-row mb-3" >
+                <div class="col-md-4">
+                    <input type="datetime-local" id="startDate" class="form-control form-control-placeholder m-3   " placeholder="Start Date" name="From" value="Form" /> 
+                </div>
+                <div class="col-md-4">
+                     <input type="datetime-local" id="endDate" class="form-control form-control-placeholder m-3" placeholder="End Date" value="To" /> 
+                </div>
+                <div class="col-md-4 mt-auto">
+                    <button id="applyFilter" class="btn btn-sim btn-outline-info">Filter</button>
+                </div>
+            </div>
+
+            @*------------------------------------------------------------*@
+            
+            <table id="example" class="table table-hover table-responsive table-sm table-striped tab-content   navbar-nav-scroll mt-4" style="width:100%">
+
+                <thead  class="" style="color:aqua" >
+                    <tr>
+                        <th>#</th>
+                        <th><input id="selectall" type="checkbox"   /> </th>
+                        <th>InternalID</th>
+                        <th>Reciver Name</th>
+                        <th>
+                            <span style="cursor: pointer;" onclick="showFilterPopup()">Upload Date</span>
+                            <!-- Filter Pop-up -->
+                            <div id="filterPopup" style="display: none;">
+                                <input type="datetime-local" id="filterStartDate" class="form-control" />
+                                <input type="datetime-local" id="filterEndDate" class="form-control" />
+                                <button class="btn btn-sm btn-outline-primary" onclick="applyDateFilter()">Apply</button>
+                            </div>
+                        </th>
+                        <th>SO Reference</th>
+                        <th>Registration</th>
+                        <th>Download</th>
+                        <th>Preview</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Model != null)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                    <td>@x</td>
+                                    <td><input type="checkbox" name="selectedFiles" value="@item.ID" /></td>
+                                    <td>@item.internalID</td>
+                                    <td>@item.ReciverName</td>
+                                    <td>@item.UploadDate</td>
+                                    <td>@item.salesOrderReference</td>
+                                    <td>@item.Registration_Number</td>
+                                    <td>
+                                        <a asp-action="DownloadPDF" asp-route-id="@item.ID" class="btn btn-outline-warning btn-sm bi-download"></a>
+                                    </td>
+                                    <td>
+                                    <a asp-action="PreviewPDF" asp-route-id="@item.ID" class="btn btn-outline-primary btn-sm bi bi-file-earmark-play-fill"></a>
+                                    </td>
+                            </tr>
+                            { x += 1; }
+                        }
+
+                    }
+                    @if(Model is null)   
+                    {
+                        <tr> Loading...</tr>
+                    }
+                </tbody>
+            </table>
+             <div class="mt-3">
+                <button id="downloadSelected" class="btn btn-sm  btn-outline-success  btn bi-file-pdf"> Download Selected</button>          
+                <a asp-controller="Home" asp-action="DownloadGridViewAsExcel" class="btn btn-sm btn-outline-success bi-file-excel"> Download as Excel</a>
+        </div>          
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+
+<script src="~/assets/js/custom.js"></script>
+
+
