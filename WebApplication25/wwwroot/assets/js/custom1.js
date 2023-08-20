@@ -17,28 +17,29 @@ $(document).ready(function () {
                         }
                     } 
      });
-
+    // Define base URL
+    var baseUrl = "http://10.0.2.3";
     // Handle apply filter button click
     $('#applyFilter').click(function () {
         var startDate = $('#startDate').val();
         var endDate = $('#endDate').val();
 
-        // Redirect to PrintPDF action with selected dates
-        window.location.href = "/Home/Index?startDate=" + startDate + "&endDate=" + endDate;
+        // Redirect to PrintPDF action with selected dates Active%20Directory%20as%20Pdf
+        window.location.href = baseUrl + "/ActiveDirectoryAsPdf/Home/Index?startDate=" + startDate + "&endDate=" + endDate;
     });
 
 // Handle download of selected files
-     $('#downloadSelected').click(function () {
-            var selectedFiles = [];
-            $('input[name="selectedFiles"]:checked').each(function () {
-                selectedFiles.push($(this).val());
-            });
-            if (selectedFiles.length > 0) {
-                window.location.href = "/Home/DownloadSelected?ids=" + selectedFiles.join(',');
-            }
-     });
-
-
+    $('#downloadSelected').click(function (e) {
+        e.preventDefault(); // Prevent the default redirection behavior
+        var selectedFiles = [];
+        $('input[name="selectedFiles"]:checked').each(function () {
+            selectedFiles.push($(this).val());
+        });
+        if (selectedFiles.length > 0) {
+            window.location.href = baseUrl + "/ActiveDirectoryAsPdf/Home/DownloadSelected?ids=" + selectedFiles.join(',');
+        }
+    });
+ 
     //handel check box to select all
     // Handle checkbox to select all
     $('#selectall').click(function () {

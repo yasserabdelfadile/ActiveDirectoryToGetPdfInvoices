@@ -50,8 +50,8 @@ namespace WebApplication25.Controllers
             try
             {
 
-             //  var  userSamAccountName = _accessor?.HttpContext?.User?.Identity?.Name;
-                //userSamAccountName = userSamAccountName.Replace("ALSHAHIN\\yasseres", "yasseres");
+              // var  userSamAccountName = _accessor?.HttpContext?.User?.Identity?.Name;
+              //  userSamAccountName = userSamAccountName.Replace("ALSHAHIN\\yasseres", "yasseres");
                     //  List<GetResponseForInvoicingEntity> query = new List<GetResponseForInvoicingEntity>();
                 string name = curentuser();
                 var user=await _context.UserID.Include(x=> x.RoleUserID)
@@ -161,7 +161,7 @@ namespace WebApplication25.Controllers
             }
 
         }
-
+        //^ScriptDocument4955 custom.js
 
         public IActionResult DownloadSelected(string ids)
         {
@@ -205,38 +205,38 @@ namespace WebApplication25.Controllers
         }
 
 
-        public IActionResult DownloadAll()
-        {
-            try
-            {
-                var files = _db.GetResponseForInvoicing.Where(x => x.Binary_File != null).ToList();
+        //public IActionResult DownloadAll()
+        //{
+        //    try
+        //    {
+        //        var files = _db.GetResponseForInvoicing.Where(x => x.Binary_File != null).ToList();
 
-                if (files.Count > 0)
-                {
-                    var zipStream = new MemoryStream();
-                    using (var zipArchive = new ZipArchive(zipStream, ZipArchiveMode.Create, true))
-                    {
-                        foreach (var file in files)
-                        {
-                            var entry = zipArchive.CreateEntry($"{file.internalID}.pdf", System.IO.Compression.CompressionLevel.Optimal);
-                            using (var entryStream = entry.Open())
-                            {
-                                entryStream.Write(file.Binary_File, 0, file.Binary_File.Length);
-                            }
-                        }
-                    }
+        //        if (files.Count > 0)
+        //        {
+        //            var zipStream = new MemoryStream();
+        //            using (var zipArchive = new ZipArchive(zipStream, ZipArchiveMode.Create, true))
+        //            {
+        //                foreach (var file in files)
+        //                {
+        //                    var entry = zipArchive.CreateEntry($"{file.internalID}.pdf", System.IO.Compression.CompressionLevel.Optimal);
+        //                    using (var entryStream = entry.Open())
+        //                    {
+        //                        entryStream.Write(file.Binary_File, 0, file.Binary_File.Length);
+        //                    }
+        //                }
+        //            }
 
-                    zipStream.Position = 0;
-                    return File(zipStream.ToArray(), "application/zip", "AllFiles.zip");
-                }
+        //            zipStream.Position = 0;
+        //            return File(zipStream.ToArray(), "application/zip", "AllFiles.zip");
+        //        }
 
-                return NotFound();
-            }
-            catch (Exception ex)
-            {
-                return Content(ex.Message);
-            }
-        }
+        //        return NotFound();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(ex.Message);
+        //    }
+        //}
 
 
 
